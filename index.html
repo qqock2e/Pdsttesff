@@ -1922,7 +1922,7 @@ async function saveGameDataOnline() {
     };
 
     try {
-        await db.collection("gameSaves").doc(currentUserId).set(saveData);
+        await setDoc(doc(db, "gameSaves", currentUserId), saveData);
         console.log("🔥 온라인 저장 성공:", currentUserId);
     } catch (err) {
         console.error("온라인 저장 실패:", err);
@@ -1932,9 +1932,9 @@ async function saveGameDataOnline() {
 // 온라인 불러오기
 async function loadGameDataOnline(id, pw) {
     try {
-        const doc = await db.collection("gameSaves").doc(id).get();
-        if (doc.exists) {
-            const data = doc.data();
+        const snapshot = await getDoc(doc(db, "gameSaves", id));
+        if (snapshot.exists()) {
+            const data = snapshot.data();
             if (data.password === pw) {
                 points = data.points || 0;
                 prisms = data.prisms || 0;
@@ -1949,13 +1949,15 @@ async function loadGameDataOnline(id, pw) {
             } else {
                 alert("비밀번호가 일치하지 않습니다.");
             }
+        } else {
+            console.warn("⚠️ 해당 아이디의 저장 데이터가 없습니다.");
         }
     } catch (err) {
         console.error("온라인 불러오기 실패:", err);
     }
 }
 
-        function applyUserCredentials() {
+function applyUserCredentials() {
     const id = document.getElementById("userIdInput").value.trim();
     const pw = document.getElementById("userPwInput").value.trim();
     if (!id || !pw) {
@@ -1966,6 +1968,7 @@ async function loadGameDataOnline(id, pw) {
     currentUserPw = pw;
     loadGameDataOnline(id, pw);
 }
+
 
         
         // 로컬 저장소 관련 함수들
@@ -2039,9 +2042,9 @@ async function loadGameDataOnline(id, pw) {
     }));
 
     // 온라인 저장 (아이디/비번 입력된 경우)
-    //if (allowOnlineSave) {
-        //saveGameDataOnline();
-    //}
+    if (allowOnlineSave) {
+        saveGameDataOnline();
+    }
 }
 
 
