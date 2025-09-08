@@ -1935,6 +1935,7 @@ async function loadGameDataOnline(id, pw) {
     try {
         const snapshot = await getDoc(doc(db, "gameSaves", id));
         if (snapshot.exists()) {
+            // 기존 데이터가 있으면 불러오기
             const data = snapshot.data();
             if (data.password === pw) {
                 points = data.points || 0;
@@ -1942,7 +1943,7 @@ async function loadGameDataOnline(id, pw) {
                 inventory = data.inventory || {};
                 volumes = data.volumes || {};
                 updateDisplay();
-                autoSave();
+                autoSave(); // 불러온 후 저장
                 allowOnlineSave = true;
                 currentUserId = id;
                 currentUserPw = pw;
@@ -1951,12 +1952,19 @@ async function loadGameDataOnline(id, pw) {
                 alert("비밀번호가 일치하지 않습니다.");
             }
         } else {
-            console.warn("⚠️ 해당 아이디의 저장 데이터가 없습니다.");
+            // 🔹 계정이 없으면 새로 만들기
+            console.log("새 계정 생성:", id);
+            allowOnlineSave = true;
+            currentUserId = id;
+            currentUserPw = pw;
+            autoSave(); // 초기 데이터 저장
+            alert("새 계정이 생성되었습니다!");
         }
     } catch (err) {
         console.error("온라인 불러오기 실패:", err);
     }
 }
+
 
 function applyUserCredentials() {
     const id = document.getElementById("userIdInput").value.trim();
