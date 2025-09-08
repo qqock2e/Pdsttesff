@@ -618,6 +618,9 @@
             lux: false       // 럭스 볼륨 보유 여부
         };
         let maxSlots = 1; // 최대 장착 슬롯 수
+        let allowOnlineSave = false;
+        let currentUserId = null;
+        let currentUserPw = null;
 
         const pointsDisplay = document.getElementById('points');
         const prismsDisplay = document.getElementById('prisms');
@@ -1904,9 +1907,7 @@ function updateInventoryDisplay() {
 
 
         // 저장 가능 여부 플래그
-let allowOnlineSave = false;
-let currentUserId = null;
-let currentUserPw = null;
+
 
 // 온라인 저장
 async function saveGameDataOnline() {
