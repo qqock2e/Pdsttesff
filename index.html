@@ -119,7 +119,25 @@
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-4">
-    
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getFirestore, doc, setDoc, getDoc } 
+    from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAkPZjZXwbp82glutHdEPoeLvN2r58PAFo",
+    authDomain: "pendantist-data.firebaseapp.com",
+    projectId: "pendantist-data",
+    storageBucket: "pendantist-data.appspot.com",
+    messagingSenderId: "485125312686",
+    appId: "1:485125312686:web:ccab0e8a4a5707af4add3f",
+    measurementId: "G-2KMEETEQV3"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  window.db = db; // 전역 등록
+</script>
     <!-- 메인 UI 영역 -->
     <div id="mainUI" class="transition-opacity duration-500">
         <!-- 재화 표시 영역 -->
@@ -580,25 +598,7 @@
     </p>
   </div>
 </div>
-    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-  import { getFirestore, doc, setDoc, getDoc } 
-    from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAkPZjZXwbp82glutHdEPoeLvN2r58PAFo",
-    authDomain: "pendantist-data.firebaseapp.com",
-    projectId: "pendantist-data",
-    storageBucket: "pendantist-data.appspot.com",
-    messagingSenderId: "485125312686",
-    appId: "1:485125312686:web:ccab0e8a4a5707af4add3f",
-    measurementId: "G-2KMEETEQV3"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  window.db = db; // 전역 등록
-</script>
+    
 
 
     <script>
