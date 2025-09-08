@@ -582,7 +582,8 @@
 </div>
     <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  import { getFirestore, doc, setDoc, getDoc } 
+    from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAkPZjZXwbp82glutHdEPoeLvN2r58PAFo",
@@ -594,11 +595,11 @@
     measurementId: "G-2KMEETEQV3"
   };
 
-  // Firebase 초기화
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  window.db = db; // 다른 스크립트에서 접근 가능하도록 전역 등록
+  window.db = db; // 전역 등록
 </script>
+
 
     <script>
         let points = 0;
